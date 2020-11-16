@@ -5,11 +5,13 @@ package it.unibo.oop.lab.simplegui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.LayoutManager;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -38,6 +40,7 @@ public class MiniGUI {
         canvas.add(write, BorderLayout.CENTER);
         frame.setContentPane(canvas);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        firstEx();
         /*
          * Handlers
          */
@@ -72,6 +75,15 @@ public class MiniGUI {
          * OK, ready to pull the frame onscreen
          */
         frame.setVisible(true);
+        frame.pack();
+    }
+
+    private void firstEx() {
+        final JPanel p1 = new JPanel();
+        p1.setLayout(new BoxLayout(p1, BoxLayout.PAGE_AXIS));
+        final JButton b1 = new JButton();
+        p1.add(b1);
+        frame.add(p1);
     }
 
     /**
