@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.Random;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -36,11 +37,24 @@ public class BadIOGUI {
      */
     public BadIOGUI() {
         final JPanel canvas = new JPanel();
+       //Note how these properties are used to produce multi-platform code NOTE: write once, run everywhere is true only if the code is maeant to be multiplatform!
         canvas.setLayout(new BorderLayout());
+
+
         final JButton write = new JButton("Write on file");
         canvas.add(write, BorderLayout.CENTER);
         frame.setContentPane(canvas);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        //Ex 01.01
+        final JPanel p1 = new JPanel();
+        p1.setLayout(new BoxLayout(p1, BoxLayout.LINE_AXIS));
+        p1.add(write, BorderLayout.CENTER);
+        canvas.add(p1, BorderLayout.CENTER);
+        
+        //Ex 01.02
+        final JButton read = new JButton();
+        p1.add(read);
         /*
          * Handlers
          */
@@ -60,6 +74,14 @@ public class BadIOGUI {
                     JOptionPane.showMessageDialog(frame, e1, "Error", JOptionPane.ERROR_MESSAGE);
                     e1.printStackTrace();
                 }
+            }
+        });
+        
+        read.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(final ActionEvent arg0) {
+                System.out.println("Test");
             }
         });
     }
@@ -87,6 +109,7 @@ public class BadIOGUI {
          * OK, ready to pull the frame onscreen
          */
         frame.setVisible(true);
+        frame.pack();
     }
 
     /**
