@@ -6,6 +6,7 @@ package it.unibo.oop.lab.simplegui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.LayoutManager;
+import java.awt.TextField;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,18 +39,35 @@ public class MiniGUI {
         canvas.setLayout(new BorderLayout());
         final JButton write = new JButton("Print a random number on standard output");
         canvas.add(write, BorderLayout.CENTER);
-        frame.setContentPane(canvas);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        firstEx();
+
+        frame.setContentPane(canvas);
+
+        //Ex 01.01
+        firstEx(write, canvas);
+
+        //Ex 01.02
+        final TextField result = new TextField();
+
+        canvas.add(result, BorderLayout.NORTH);
+
         /*
          * Handlers
          */
         write.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                System.out.println(rng.nextInt());
+                //System.out.println(rng.nextInt());
+                result.setText(String.valueOf(rng.nextInt()));
             }
         });
+    }
+
+    private void firstEx(final JButton btn, final JPanel canvas) {
+        final JPanel p1 = new JPanel();
+        p1.setLayout(new BoxLayout(p1, BoxLayout.LINE_AXIS));
+        p1.add(btn, BorderLayout.CENTER);
+        canvas.add(p1, BorderLayout.CENTER);
     }
 
     private void display() {
@@ -77,15 +95,7 @@ public class MiniGUI {
         frame.setVisible(true);
         frame.pack();
     }
-
-    private void firstEx() {
-        final JPanel p1 = new JPanel();
-        p1.setLayout(new BoxLayout(p1, BoxLayout.PAGE_AXIS));
-        final JButton b1 = new JButton();
-        p1.add(b1);
-        frame.add(p1);
-    }
-
+    
     /**
      * @param args ignored
      */
