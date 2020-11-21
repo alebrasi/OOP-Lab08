@@ -5,7 +5,13 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.util.Random;
 
@@ -51,7 +57,7 @@ public class BadIOGUI {
         p1.setLayout(new BoxLayout(p1, BoxLayout.LINE_AXIS));
         p1.add(write, BorderLayout.CENTER);
         canvas.add(p1, BorderLayout.CENTER);
-        
+
         //Ex 01.02
         final JButton read = new JButton();
         p1.add(read);
@@ -76,12 +82,24 @@ public class BadIOGUI {
                 }
             }
         });
-        
+
         read.addActionListener(new ActionListener() {
 
             @Override
-            public void actionPerformed(final ActionEvent arg0) {
-                System.out.println("Test");
+            public void actionPerformed(final ActionEvent e) {
+                String line;
+                InputStream in = null;
+                try {
+                    in = new FileInputStream(PATH);
+                } catch (FileNotFoundException e1) {
+                    System.out.println("Cannot find file " + PATH);
+                } 
+                try (BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
+                    line = br.readLine();
+                    System.out.println(line);
+                } catch (IOException exp) {
+                    System.out.println("Cannot open stream");
+                }
             }
         });
     }
