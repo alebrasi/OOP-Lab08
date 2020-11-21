@@ -21,6 +21,7 @@ import javax.swing.JTextArea;
 public final class SimpleGUI {
 
     private final JFrame frame = new JFrame();
+    private final JPanel canvas = new JPanel();
 
     /*
      * Once the Controller is done, implement this class in such a way that:
@@ -62,7 +63,6 @@ public final class SimpleGUI {
         frame.setSize(sw / 2, sh / 2);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        final JPanel canvas = new JPanel();
         final JTextArea ta = new JTextArea();
         final JButton save = new JButton("Save");
 
@@ -94,6 +94,14 @@ public final class SimpleGUI {
          */
         frame.setLocationByPlatform(true);
         frame.setVisible(true);
+    }
+
+    public JFrame getFrame() {
+        return this.frame;
+    }
+
+    public JPanel getPanel() {
+        return this.canvas;
     }
 
      public static void main(final String... args) {
