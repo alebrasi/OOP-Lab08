@@ -22,6 +22,7 @@ public final class SimpleGUI {
 
     private final JFrame frame = new JFrame();
     private final JPanel canvas = new JPanel();
+    private final Controller controller;
 
     /*
      * Once the Controller is done, implement this class in such a way that:
@@ -67,10 +68,10 @@ public final class SimpleGUI {
         final JButton save = new JButton("Save");
 
         canvas.setLayout(new BorderLayout());
-        canvas.add(ta, BorderLayout.WEST);
+        canvas.add(ta, BorderLayout.CENTER);
         canvas.add(save, BorderLayout.SOUTH);
 
-        final Controller controller = new Controller();
+        controller = new Controller();
 
         save.addActionListener(new ActionListener() {
 
@@ -102,6 +103,10 @@ public final class SimpleGUI {
 
     public JPanel getPanel() {
         return this.canvas;
+    }
+
+    public Controller getController() {
+       return this.controller; 
     }
 
      public static void main(final String... args) {
