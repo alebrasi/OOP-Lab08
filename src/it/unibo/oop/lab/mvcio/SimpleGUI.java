@@ -18,7 +18,7 @@ import javax.swing.JTextArea;
  * A very simple program using a graphical interface.
  * 
  */
-public class SimpleGUI {
+public final class SimpleGUI {
 
     private final JFrame frame = new JFrame();
 
