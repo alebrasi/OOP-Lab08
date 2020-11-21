@@ -1,5 +1,18 @@
 package it.unibo.oop.lab.mvcio2;
 
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import it.unibo.oop.lab.mvcio.Controller;
+import it.unibo.oop.lab.mvcio.SimpleGUI;
 /**
  * A very simple program using a graphical interface.
  * 
@@ -32,4 +45,46 @@ public final class SimpleGUIWithFileChooser {
      * try to keep things separated.
      */
 
+    private SimpleGUIWithFileChooser() {
+        final SimpleGUI mainGui = new SimpleGUI();
+        final Controller controller = mainGui.getController();
+        final JPanel canvas = mainGui.getPanel();
+        final JPanel innerCanvas = new JPanel();
+        final JTextField textField = new JTextField(controller.getFilePath());
+        final JButton browseButton = new JButton("Browse");
+
+        textField.setEditable(false);
+        innerCanvas.setLayout(new BorderLayout());
+        innerCanvas.add(textField, BorderLayout.CENTER);
+        innerCanvas.add(browseButton, BorderLayout.LINE_END);
+
+        canvas.add(innerCanvas, BorderLayout.NORTH);
+
+        browseButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(final ActionEvent arg0) {
+                final JFileChooser chooser = new JFileChooser();
+                final int choice = chooser.showSaveDialog(innerCanvas);
+                switch (choice) {
+                    case JFileChooser.APPROVE_OPTION :
+                        controller.setCurrentFile(chooser.getSelectedFile());
+                        break;
+
+                    case JFileChooser.CANCEL_OPTION :
+                        break;
+                default:
+                    JOptionPane.showMessageDialog(innerCanvas, "An error occured");
+                    break;
+                }
+
+                textField.setText(controller.getFilePath());
+            }
+
+        });
+    }
+
+    public static void main(final String... arg) {
+        new SimpleGUIWithFileChooser();
+    }
 }
