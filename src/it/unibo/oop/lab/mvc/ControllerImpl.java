@@ -6,9 +6,6 @@ import java.util.List;
 
 public class ControllerImpl implements Controller {
     private final List<String> history;
-
-    //Redundant but in such way I don't have to get the last item of the Linked list each time
-    private String currentStr;
     private String nextStr;
 
     public ControllerImpl() {
@@ -16,9 +13,9 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public final void setNextString(final String string) throws NullPointerException {
+    public final void setNextString(final String string) {
         if (string != null) {
-            nextStr = string;
+            this.nextStr = string;
         } else {
             throw new NullPointerException();
         }
@@ -26,7 +23,6 @@ public class ControllerImpl implements Controller {
 
     @Override
     public final String getNextString() {
-        currentStr = nextStr;
         return nextStr;
     }
 
@@ -36,10 +32,10 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public final void printCurrentString() throws IllegalStateException {
-        if (currentStr != null) {
-            history.add(currentStr);
-            System.out.println(currentStr);
+    public final void printCurrentString() {
+        if (nextStr != null) {
+            history.add(nextStr);
+            System.out.println(nextStr);
         } else {
             throw new IllegalStateException();
         }
